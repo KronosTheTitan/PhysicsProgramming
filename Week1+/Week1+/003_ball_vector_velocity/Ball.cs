@@ -13,6 +13,7 @@ public class Ball : EasyDraw
 	int _radius;
 	Vec2 _position;
 	float _speed;
+	bool running = true;
 
 	public Ball (int pRadius, Vec2 pPosition, float pSpeed=5) : base (pRadius*2 + 1, pRadius*2 + 1)
 	{
@@ -33,20 +34,21 @@ public class Ball : EasyDraw
 	}
 
 	void KeyControls() {
-		velocity.x = 0;
-		velocity.y = 0;
+		velocity.x += Input.mouseX - x;
+		velocity.y += Input.mouseY - y;
 
-		if (Input.GetKey (Key.RIGHT)) {
-			velocity.x += 1;
-		} else if (Input.GetKey (Key.LEFT)) {
-			velocity.x -= 1;
-		} 
+		//if (Input.GetKey (Key.RIGHT)) {
+		//	velocity.x += 1;
+		//} else if (Input.GetKey (Key.LEFT)) {
+		//	velocity.x -= 1;
+		//} 
+		//
+		//if (Input.GetKey (Key.UP)) {
+		//	velocity.y -= 1;
+		//} else if (Input.GetKey (Key.DOWN)) {
+		//	velocity.y += 1;
+		//}
 
-		if (Input.GetKey (Key.UP)) {
-			velocity.y -= 1;
-		} else if (Input.GetKey (Key.DOWN)) {
-			velocity.y += 1;
-		} 
 	}
 
 	void UpdateScreenPosition() {
@@ -55,9 +57,15 @@ public class Ball : EasyDraw
 	}
 
 	public void Step () {
+		if (!running)
+			return;
+		Vec2 old = velocity;
 		KeyControls ();
+		if (velocity.Length() <= _radius)
+			running = false;
 		velocity.Normalize();
-		_position += velocity *_speed;
+		_position += (((velocity *_speed)*0.2f)+(old*_speed *0.8f));
+		_speed += .1f;
 
 		UpdateScreenPosition ();
 	}
