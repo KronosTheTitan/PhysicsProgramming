@@ -1,0 +1,6 @@
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\bin\Debug\RotatingSpaceship.exe
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\bin\Debug\RotatingSpaceship.pdb
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\obj\x86\Debug\RotatingSpaceship.csproj.AssemblyReference.cache
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\obj\x86\Debug\RotatingSpaceship.csproj.CoreCompileInputs.cache
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\obj\x86\Debug\RotatingSpaceship.exe
+D:\05 School\PhysicsProgramming\Week2+\Week2+\001_rotating_spaceship\obj\x86\Debug\RotatingSpaceship.pdb

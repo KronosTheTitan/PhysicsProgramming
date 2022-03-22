@@ -4,3 +4,9 @@ D:\07 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\D
 D:\07 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
 D:\07 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.exe
 D:\07 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.pdb
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\bin\Debug\GXPEngine.exe
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\bin\Debug\GXPEngine.pdb
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.csproj.AssemblyReference.cache
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.exe
+D:\05 School\PhysicsProgramming\Week1+\Week1+\003_ball_vector_velocity\obj\x86\Debug\GXPEngine.pdb

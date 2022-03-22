@@ -31,12 +31,18 @@ public class MyGame : Game
 		Vec2 result3 = myVec;
 		result3.SetXY(3, 4);
 		Console.WriteLine("SetXY ok?: " + (result3.x == 3 && result3.y == 4));
-		Console.WriteLine("Length ok?: " + (result3.Length() == 5));
-		Vec2 result4 = new Vec2(-3f,4f);
-		result4.Normalize();
-		Console.WriteLine("Normalize ok?: "+(result4.x == -0.6f && result4.y == 0.8f));
-		Vec2 result5 = new Vec2(6, 8).Normalized();
-		Console.WriteLine("Normalized ok?: " + (result5.x == 0.6f&& result5.y == 0.8f));
+		Vec2 result4 = new Vec2(12, 9);
+		Console.WriteLine("Length ok?: " + (result4.Length() == 15));
+		Vec2 result5 = new Vec2(-3f,4f);
+		result5.Normalize();
+		Console.WriteLine("Normalize ok?: "+(result5.x == -0.6f && result5.y == 0.8f));
+		Vec2 result6 = new Vec2(6, 8).Normalized();
+		Console.WriteLine("Normalized ok?: " + (result6.x == 0.6f&& result6.y == 0.8f));
+
+		Vec2 question = new Vec2(5, 5).Normalized();
+		question *= 10;
+		Console.WriteLine(question.x + "," + question.y);
+		Console.WriteLine(question.Length() == 10);
 	}
 
 	void Update () {
