@@ -75,33 +75,33 @@ public struct Vec2
 	}
 	public static float Deg2Rad(float f)
 	{
-		return f * (Mathf.PI / 180);
+		return f * (Mathf.PI / 180f);
 
 	}
 	public static float Rad2Deg(float f)
 	{
-		return f * (180 / Mathf.PI);
+		return f * (180f / Mathf.PI);
 	}
 	public static Vec2 GetUnitVectorDeg(float f)
 	{
-		Vec2 output = new Vec2(1, 0);
-		output.RotateDegrees(f);
+		float radian = Deg2Rad(f);
+		Vec2 output = new Vec2(Mathf.Cos(radian), Mathf.Sin(radian));
 		return output;
 	}
 	public static Vec2 GetUnitVectorRad(float f)
 	{
-		Vec2 output = new Vec2(1, 0);
-		output.RotateDegrees(f);
+		Vec2 output = new Vec2(Mathf.Cos(f), Mathf.Sin(f));
 		return output;
 	}
 	public static Vec2 RandomUnitVector()
 	{
-		Vec2 output = new Vec2(1, 0);
-		output.RotateDegrees(Utils.Random(0, 360));
+		float f = Deg2Rad( Utils.Random(0, 360));
+		Vec2 output = new Vec2(Mathf.Cos(f), Mathf.Sin(f));
 		return output;
 	}
 	public void SetAngleDegrees(float f)
 	{
+		f = Deg2Rad(f);
 		float l = Length();
 		x = Mathf.Cos(f);
 		y = Mathf.Sin(f);
@@ -110,7 +110,6 @@ public struct Vec2
 	}
 	public void SetAngleRadians(float f)
 	{
-		f = Vec2.Rad2Deg(f);
 		float l = Length();
 		x = Mathf.Cos(f);
 		y = Mathf.Sin(f);
@@ -119,24 +118,24 @@ public struct Vec2
 	}
 	public float GetAngleRadians()
 	{
-		return Deg2Rad(Mathf.Atan2(y, x));
+		return Mathf.Atan2(y, x);
 	}
 	public float GetAngleDegrees()
 	{
-		return Mathf.Atan2(y, x);
+		return Rad2Deg( Mathf.Atan2(y, x));
 	}
 	public void RotateDegrees(float f)
 	{
-		float a = GetAngleDegrees();
-		a += f;
-		SetAngleDegrees(f);
+		f = Deg2Rad(f);
+		float xo = x;
+		x = x*Mathf.Cos(f) - y*Mathf.Sin(f);
+		y = xo*Mathf.Sin(f) + y*Mathf.Cos(f);
 	}
 	public void RotateRadians(float f)
 	{
-		f = Rad2Deg(f);
-		float a = GetAngleDegrees();
-		a += f;
-		SetAngleDegrees(f);
+		float xo = x;
+		x = x * Mathf.Cos(f) - y * Mathf.Sin(f);
+		y = xo * Mathf.Sin(f) + y * Mathf.Cos(f);
 	}
 	public void RotateAroundDegrees(Vec2 point, float angle)
 	{
@@ -148,6 +147,19 @@ public struct Vec2
 	public void RotateAroundRadians(Vec2 point, float angle)
 	{
 		RotateAroundDegrees(point, Rad2Deg(angle));
+	}
+	public Vec2 MoveForward(float f)
+	{
+		Vec2 vec2 = GetUnitVectorDeg(GetAngleDegrees());
+		vec2.Normalize();
+		vec2 *= f;
+		return vec2;
+    }public Vec2 MoveBack(float f)
+	{
+		Vec2 vec2 = GetUnitVectorDeg(GetAngleDegrees()-180);
+		vec2.Normalize();
+		vec2 *= f;
+		return vec2;
 	}
 }
 

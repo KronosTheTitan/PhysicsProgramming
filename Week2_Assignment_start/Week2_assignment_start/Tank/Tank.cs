@@ -21,28 +21,31 @@ class Tank : Sprite
 	{
 		_position.x = px;
 		_position.y = py;
+		SetOrigin(width / 2, height / 2);
 		_barrel = new Barrel ();
 		AddChild (_barrel);
 	}
 
 	void Controls() 
 	{
+		velocity *= 0.99f;
 		if (Input.GetKey (Key.LEFT)) 
 		{
-			rotation++;
+			velocity.RotateDegrees(-1);
 		}
 		if (Input.GetKey (Key.RIGHT)) 
 		{
-			rotation--;
+			velocity.RotateDegrees(1);
 		}
 		if (Input.GetKey (Key.UP)) 
 		{
-			velocity += new Vec2 (0.1f, 0);
+			velocity += velocity.MoveForward(0.1f);
 		}
 		if (Input.GetKey (Key.DOWN)) 
 		{
-			velocity += new Vec2 (-0.1f, 0);
+			velocity *= 0.1f;
 		}
+		rotation = velocity.GetAngleDegrees();
 	}
 
 	void Shoot() {
