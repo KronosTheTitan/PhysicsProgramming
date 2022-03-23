@@ -32,8 +32,10 @@ public class MyGame : Game
 		result3.SetXY(3, 4);
 		Console.WriteLine("SetXY ok?: " + (result3.x == 3 && result3.y == 4));
 		Console.WriteLine("Length ok?: " + (result3.Length() == 5));
-		Vec2 result4 = new Vec2(-3f,4f);
+		Vec2 result4 = new Vec2(5f,5f);
 		result4.Normalize();
+		result4 = result4 * 10;
+		Console.WriteLine(result4.x + "," + result4.y);
 		Console.WriteLine("Normalize ok?: "+(result4.x == -0.6f && result4.y == 0.8f));
 		Vec2 result5 = new Vec2(6, 8).Normalized();
 		Console.WriteLine("Normalized ok?: " + (result5.x == 0.6f&& result5.y == 0.8f));
