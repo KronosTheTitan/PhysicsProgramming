@@ -10,9 +10,6 @@ class Barrel : Sprite
 
 	public void Update() 
 	{
-		Vec2 mouse = new Vec2(Input.mouseX, Input.mouseY);
-		Vec2 pos = new Vec2(x, y);
-		Vec2 rot = pos - mouse;
-		rotation = rot.GetAngleDegrees();
+		rotation = Mathf.Atan2(Input.mouseY - y, Input.mouseX - x) * 180 / (Mathf.PI);
 	}
 }

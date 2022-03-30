@@ -43,7 +43,7 @@ class Tank : Sprite
 		}
 		if (Input.GetKey (Key.DOWN)) 
 		{
-			velocity *= 0.1f;
+			velocity *= 0.75f;
 		}
 		rotation = velocity.GetAngleDegrees();
 	}
