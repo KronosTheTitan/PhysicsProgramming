@@ -27,11 +27,10 @@ public class MyGame : Game
 	EasyDraw _text;
 
 	NLineSegment[] _lineSegments = { 
-		//new NLineSegment(new Vec2(50, 50), new Vec2(750, 50), 0xff00ff00, 3),
-		//new NLineSegment(new Vec2(400, 550), new Vec2(50, 50), 0xff00ff00, 3),
-		//new NLineSegment(new Vec2(750, 550), new Vec2(400, 550), 0xff00ff00, 3),
-		//new NLineSegment(new Vec2(750,50), new Vec2(750, 550), 0xff00ff00, 3),
-		new NLineSegment(new Vec2(500-200,400-200), new Vec2(750-200, 550-50), 0xff00ff00, 3)
+		new NLineSegment(new Vec2(50, 50), new Vec2(750, 50), 0xff00ff00, 3),
+		new NLineSegment(new Vec2(400, 550), new Vec2(50, 50), 0xff00ff00, 3),
+		new NLineSegment(new Vec2(750, 550), new Vec2(400, 550), 0xff00ff00, 3),
+		new NLineSegment(new Vec2(750,50), new Vec2(750, 550), 0xff00ff00, 3)
 	};
 
 	public MyGame () : base(800, 600, false,false)
@@ -63,57 +62,52 @@ public class MyGame : Game
 		_ball.Step ();
 
 		//TODO: calculate correct distance from ball center to line
-		foreach(NLineSegment _lineSegment in _lineSegments)
-        {
-			Vec2 ltb = _ball.position - _lineSegment.start;
-			float ballDistance = ltb.Dot((_lineSegment.end - _lineSegment.start).Normal());   //HINT: it's NOT 10000
+		foreach (NLineSegment nLine in _lineSegments)
+		{
+			Vec2 ltb = _ball.position - nLine.start;
+			float ballDistance = ltb.Dot((nLine.end - nLine.start).Normal());   //HINT: it's NOT 10000
 
 			//compare distance with ball radius
 			if (ballDistance < _ball.radius)
 			{
-				float a = (_ball.oldPosition - _lineSegment.start).Dot((_lineSegment.end - _lineSegment.start).Normal()) - _ball.radius;
-				float b = _ball.position.Dot((_lineSegment.end - _lineSegment.start).Normal());
-				float t = a / b;
-				//_ball.position = _ball.oldPosition + (_ball.velocity * t);
-				Vec2 desiredPos = _ball.oldPosition + (_ball.velocity * t);
-				Vec2 lineVector = _lineSegment.end - _lineSegment.start;
-				float lineLength = lineVector.Length();
-				Vec2 bulletToLine = _lineSegment.start - desiredPos;
-				float dotProduct = lineVector.Dot(bulletToLine);
 
-				_green.startPoint = desiredPos;
-				_green.vector = bulletToLine;
-
-				_red.startPoint = _lineSegment.start;
-				_red.vector = lineVector;
-
-				_projection.startPoint = _lineSegment.start;
-				_projection.vector = _red.vector.Normalized() * dotProduct;
-
-				_perpendicular.startPoint = _projection.startPoint + _projection.vector;
-				_perpendicular.vector = _green.vector - _projection.vector;
-
-				Console.WriteLine(dotProduct+" : "+lineLength);
-				if (dotProduct > 0 && dotProduct < lineLength)
+				//compare distance with ball radius
+				if (ballDistance < _ball.radius)
 				{
-					_ball.SetColor(1, 0, 0);
-					_ball.position = desiredPos;
-					_ball.velocity = _ball.velocity.Reflect((_lineSegment.end - _lineSegment.start).Normal(), 1f);
-					Console.WriteLine("Bounce at : " + _ball.position.ToString());
-					_ball.position = _ball.oldPosition + (_ball.velocity * (1 - t));
+					float a = (_ball.oldPosition - nLine.start).Dot((nLine.end - nLine.start).Normal()) - _ball.radius;
+					float b = -_ball.velocity.Dot((nLine.end - nLine.start).Normal());
+					float t = a / b;
+					//_ball.position = _ball.oldPosition + (_ball.velocity * t);
+					Vec2 desiredPos = _ball.oldPosition + (_ball.velocity * t);
+					Vec2 lineVector = nLine.end - nLine.start;
+					float lineLength = lineVector.Length();
+					Vec2 _ballToLine = desiredPos - nLine.start;
+					float dotProduct = _ballToLine.Dot(lineVector.Normalized());
+					if (dotProduct > 0 && dotProduct < lineLength && !(b <= 0 && a < 0))
+					{
+						_ball.SetColor(1, 0, 0);
+						_ball.position = desiredPos;
+						_ball.velocity = _ball.velocity.Reflect((nLine.end - nLine.start).Normal(), 1f);
+						//if (notbounce)
+						//{
+						//	LateDestroy();
+						//	_ball.LateDestroy();
+						//}
+						_ball.rotation = _ball.velocity.GetAngleDegrees();
+						//_ball.position = _ball.oldPosition + (_ball.velocity * (1 - t));
+
+					}
+					else
+					{
+						_ball.position = _ball.oldPosition + _ball.velocity;
+						_ball.SetColor(0, 1, 0);
+					}
 				}
 				else
 				{
-					_ball.position = _ball.oldPosition + _ball.velocity;
+					_ball.SetColor(0, 1, 0);
 				}
 			}
-			else
-			{
-				_ball.SetColor(0, 1, 0);
-			}
-
-			_text.Clear(Color.Transparent);
-			_text.Text("Distance to line: " + ballDistance, 0, 0);
 		}
 	}
 }

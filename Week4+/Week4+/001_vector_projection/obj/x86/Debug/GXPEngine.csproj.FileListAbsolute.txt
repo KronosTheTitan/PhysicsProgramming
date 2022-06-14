@@ -4,3 +4,9 @@ C:\Users\tjall\Downloads\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEn
 C:\Users\tjall\Downloads\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
 C:\Users\tjall\Downloads\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.exe
 C:\Users\tjall\Downloads\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.pdb
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\bin\Debug\GXPEngine.exe
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\bin\Debug\GXPEngine.pdb
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.csproj.AssemblyReference.cache
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.exe
+D:\05 School\PhysicsProgramming\Week4+\Week4+\001_vector_projection\obj\x86\Debug\GXPEngine.pdb
