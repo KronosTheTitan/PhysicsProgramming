@@ -42,7 +42,7 @@ public class MyGame : Game
 
 	public MyGame () : base(800, 600, false,false)
 	{
-		_ball = new Ball (30, new Vec2 (0, height / 2));
+		_ball = new Ball (30, new Vec2 (0, height / 2),0f);
 		AddChild (_ball);
 
 		_text = new EasyDraw (250,25);
@@ -62,9 +62,13 @@ public class MyGame : Game
 		_perpendicular = new Arrow(start, zero, 1, blue, 1);
 		AddChild(_perpendicular);
 		start = new Vec2(width / 2, height / 2);
+		
+		UnitTests.RunTests();
 	}
 
 	void Update () {
+		Aim();
+		
 		// For now: this just puts the ball at the mouse position:
 		_ball.Step ();
 
@@ -77,7 +81,8 @@ public class MyGame : Game
 			//compare distance with ball radius
 			if (ballDistance < _ball.radius)
 			{
-				float a = (_ball.oldPosition - nLine.start).Dot((nLine.end - nLine.start).Normal()) - _ball.radius;
+				//
+				float a = ( nLine.start - _ball.oldPosition).Dot((nLine.start - nLine.end).Normal()) - _ball.radius;
 				float b = -_ball.velocity.Dot((nLine.end - nLine.start).Normal());
 				float t = a / b;
 				Vec2 desiredPos = _ball.oldPosition + (_ball.velocity * t);
@@ -85,23 +90,97 @@ public class MyGame : Game
 				float lineLength = lineVector.Length();
 				Vec2 _ballToLine = desiredPos - nLine.start;
 				float dotProduct = _ballToLine.Dot(lineVector.Normalized());
-				if (dotProduct > 0 && dotProduct < lineLength && !(b <= 0 && a < 0))
+				if ((dotProduct >= 0 && dotProduct <= lineLength) && !(b <= 0) && !(a < 0))
 				{
-					_ball.SetColor(1, 0, 0);
 					_ball.position = desiredPos;
-					_ball.velocity = _ball.velocity.Reflect((nLine.end - nLine.start).Normal(), 1f);
+					_ball.velocity = _ball.velocity.Reflect((nLine.end - nLine.start).Normal(), .2f);
+					
+					/*Console.WriteLine("---Collision at "+Time.time+"---");
+					Console.WriteLine(t + " : " + a + " : " + b);
+					Console.WriteLine(_ball.velocity);
+					Console.WriteLine((nLine.end - nLine.start).Normal());
+					Console.WriteLine("--------------------------------");*/
+					
 					_ball.rotation = _ball.velocity.GetAngleDegrees();
+					continue;
 				}
 				else
 				{
 					_ball.position = _ball.oldPosition + _ball.velocity;
 					_ball.SetColor(0, 1, 0);
+
+					if (_ball.radius + 0>=(_ball.position-nLine.start).Length())
+					{
+						Vec2 normal = new Vec2();
+
+						Vec2 u = _ball.oldPosition - (nLine.start);
+						float aC = Mathf.Pow(_ball.velocity.Length(), 2);
+						float bC = u.Dot(_ball.velocity) * 2;
+						float cC = Mathf.Pow(u.Length(), 2) - Mathf.Pow(_ball.radius + 0, 2);
+						float DC = Mathf.Pow(b, 2) - (4 * aC * cC);
+
+						if (cC < 0)
+						{
+							if (bC < 0)
+							{
+								_ball.velocity = _ball.velocity.Reflect((nLine.end - nLine.start).Normal(), .2f);
+								_ball.rotation = _ball.velocity.GetAngleDegrees();
+							}
+						}
+					}
+					if (_ball.radius + 0>=(_ball.position-nLine.end).Length())
+					{
+						Vec2 normal = new Vec2();
+
+						Vec2 u = _ball.oldPosition - (nLine.end);
+						float aC = Mathf.Pow(_ball.velocity.Length(), 2);
+						float bC = u.Dot(_ball.velocity) * 2;
+						float cC = Mathf.Pow(u.Length(), 2) - Mathf.Pow(_ball.radius + 0, 2);
+						float DC = Mathf.Pow(b, 2) - (4 * aC * cC);
+
+						if (cC < 0)
+						{
+							if (bC < 0)
+							{
+								_ball.velocity = _ball.velocity.Reflect((nLine.end - nLine.start).Normal(), .2f);
+								_ball.rotation = _ball.velocity.GetAngleDegrees();
+
+							}
+						}
+					}
+					
+					continue;
 				}
 			}
 			else
 			{
-				_ball.SetColor(0, 1, 0);
+				continue;
 			}
+		}
+		SetBallColor();
+
+		
+	}
+	void Aim()
+	{
+		if(_ball.velocity.Length() >= 1f) return;
+		_ball.rotation = (_ball.position - new Vec2(Input.mouseX, Input.mouseY)).GetAngleDegrees();
+		if (Input.GetMouseButtonUp(0))
+		{
+			_ball.velocity = (new Vec2(Input.mouseX, Input.mouseY) - _ball.position).Normalized() * 5;
+		}
+			
+	}
+
+	void SetBallColor()
+	{
+		if (_ball.velocity.Length() >= 1f)
+		{
+			_ball.SetColor(1,1,0);
+		}
+		else
+		{
+			_ball.SetColor(0,1,0);
 		}
 	}
 }

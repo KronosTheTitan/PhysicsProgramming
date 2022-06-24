@@ -41,6 +41,9 @@
     <Compile Include="Components\LineSegment.cs" />
     <Compile Include="Components\NLineSegment.cs" />
     <Compile Include="MyGame.cs" />
+    <Compile Include="UnitTests.cs">
+      <Link>GXPEngine\UnitTests.cs</Link>
+    </Compile>
     <Compile Include="Vec2.cs" />
     <Compile Include="..\..\GXPEngine2022\GXPEngine\AddOns\Gizmos.cs">
       <Link>GXPEngine\AddOns\Gizmos.cs</Link>

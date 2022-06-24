@@ -21,7 +21,7 @@ public class Ball : EasyDraw
 		_radius = pRadius;
 		position = pPosition;
 		_speed = pSpeed;
-		velocity = new Vec2(2f,1f);
+		velocity = new Vec2(_speed,0);
 
 		UpdateScreenPosition ();
 		SetOrigin (_radius, _radius);
